@@ -8,7 +8,7 @@ public class EmployeesPostgresAdapter implements  EmployeesAdapter{
 
     private EmployeesPostgres db;
 
-    EmployeesPostgresAdapter(){
+    public EmployeesPostgresAdapter(){
         this.db = new EmployeesPostgres();
     }
 

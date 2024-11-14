@@ -2,6 +2,7 @@ package com.diegoBermudez.adapter;
 
 import com.diegoBermudez.entities.EmployeeEntity;
 import com.diegoBermudez.rest_api.EmployeesRestApi;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 public class EmployeesRestAdapter implements EmployeesAdapter{
 
@@ -12,7 +13,7 @@ public class EmployeesRestAdapter implements EmployeesAdapter{
     }
     @Override
     public EmployeeEntity getEmployee(int id) {
-        final var response = api.getEmployeeWithId(id);
+        final ImmutablePair<String, EmployeeEntity> response = api.getEmployeeWithId(id);
         if(response.getRight() != null) return response.getRight();
         return null;
     }

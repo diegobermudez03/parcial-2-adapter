@@ -22,7 +22,7 @@ public class EmployeesRestApi {
     }
 
     public ImmutablePair<String, EmployeeEntity> getEmployeeWithId(int id){
-        String apiUrl = this.url + "/" + id;
+        String apiUrl = this.url + "/employee/" + id;
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl))

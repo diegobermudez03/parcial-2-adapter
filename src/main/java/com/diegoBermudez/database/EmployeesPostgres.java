@@ -17,12 +17,11 @@ public class EmployeesPostgres {
 
 
     public EmployeesPostgres(){
-        Properties props = UtilidadesAcceso.loadProperty(
-                "com/propiedades/portgreProperties.properties");
+        Properties props = UtilidadesAcceso.loadProperty("com/propiedades/postgresProperties.properties");
         String url = props.getProperty("url");
         this.user = props.getProperty("user");
         this.password = props.getProperty("password");
-        this.user = "jdbc:postgresql://" + url;
+        this.url = "jdbc:postgresql://" + url;
     }
 
     public EmployeeEntity findEmployeeById(int idPam) throws DatabaseError {
@@ -37,7 +36,9 @@ public class EmployeesPostgres {
 
             if(resultSet.next()) {
                 int id = resultSet.getInt("id");
-                double salary = resultSet.getDouble("salary");
+                String salaryString = resultSet.getString("salary");
+                salaryString = salaryString.replaceAll("[^\\d.]", "");
+                double salary = Double.parseDouble(salaryString);
                 String name = resultSet.getString("name");
                 String role = resultSet.getString("role");
                 String tech = resultSet.getString("tech");
