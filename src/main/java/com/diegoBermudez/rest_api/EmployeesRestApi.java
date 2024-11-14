@@ -16,7 +16,7 @@ public class EmployeesRestApi {
 
     private String url;
 
-    EmployeesRestApi(){
+    public EmployeesRestApi(){
         Properties props = UtilidadesAcceso.loadProperty("com/propiedades/restApi.properties");
         this.url = props.getProperty("url");
     }

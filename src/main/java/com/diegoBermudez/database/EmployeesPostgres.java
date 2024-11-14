@@ -16,7 +16,7 @@ public class EmployeesPostgres {
     private String password;
 
 
-    EmployeesPostgres(){
+    public EmployeesPostgres(){
         Properties props = UtilidadesAcceso.loadProperty(
                 "com/propiedades/portgreProperties.properties");
         String url = props.getProperty("url");
@@ -25,7 +25,7 @@ public class EmployeesPostgres {
         this.user = "jdbc:postgresql://" + url;
     }
 
-    EmployeeEntity findEmployeeById(int idPam) throws DatabaseError {
+    public EmployeeEntity findEmployeeById(int idPam) throws DatabaseError {
         EmployeeEntity employee;
         String query = "SELECT id, salary, name, role, tech, email FROM employees WHERE id = ?";
         try (Connection connection = DriverManager.getConnection(url, user, password);
