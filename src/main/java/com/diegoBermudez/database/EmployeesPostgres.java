@@ -25,22 +25,30 @@ public class EmployeesPostgres {
         this.user = "jdbc:postgresql://" + url;
     }
 
-    EmployeeEntity findEmployeeById(int id){
+    EmployeeEntity findEmployeeById(int idPam) throws DatabaseError {
+        EmployeeEntity employee;
+        String query = "SELECT id, salary, name, role, tech, email FROM employees WHERE id = ?";
         try (Connection connection = DriverManager.getConnection(url, user, password);
-             String query =
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            // Iterate through the result set
-            while (resultSet.next()) {
+            preparedStatement.setInt(1, idPam);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()) {
                 int id = resultSet.getInt("id");
+                double salary = resultSet.getDouble("salary");
                 String name = resultSet.getString("name");
+                String role = resultSet.getString("role");
+                String tech = resultSet.getString("tech");
                 String email = resultSet.getString("email");
-
-                System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email);
+                employee = new EmployeeEntity(id, salary, name, role, tech, email);
+            }else{
+                throw new EmployeeNotFound();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DatabaseError();
         }
+        return employee;
     }
 }
